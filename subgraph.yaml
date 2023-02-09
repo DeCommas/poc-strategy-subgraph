@@ -1,0 +1,54 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: DeltaNeutralPerp
+    network: optimism
+    source:
+      address: "0x3E818Baf68F6465b2d97604f072CE6E402B906F7"
+      abi: DeltaNeutralPerp
+      startBlock: 11063316
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - BeaconUpgraded
+        - DepositAllowed
+        - Initialized
+        - OwnershipTransferred
+        - PFCharged
+        - PerpReferralCodeChanged
+        - PositionAdjusted
+        - USDCDeposited
+        - USDCWithdrawn
+        - Upgraded
+      abis:
+        - name: DeltaNeutralPerp
+          file: ./abis/DeltaNeutralPerp.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: DepositAllowed(indexed address)
+          handler: handleDepositAllowed
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PFCharged(indexed address,uint256)
+          handler: handlePFCharged
+        - event: PerpReferralCodeChanged(bytes32)
+          handler: handlePerpReferralCodeChanged
+        - event: PositionAdjusted(indexed bool,indexed bool,uint256,uint256,uint256)
+          handler: handlePositionAdjusted
+        - event: USDCDeposited(indexed address,uint256,indexed uint256)
+          handler: handleUSDCDeposited
+        - event: USDCWithdrawn(indexed address,uint256)
+          handler: handleUSDCWithdrawn
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: ./src/delta-neutral-perp.ts

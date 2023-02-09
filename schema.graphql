@@ -1,0 +1,23 @@
+type Deposit @entity(immutable: true) {
+  id: ID!
+  ts: BigInt!
+  userAddress: Bytes! # address
+  depositAmount: BigInt!
+  mintedAmount: BigInt!
+}
+
+type Withdrawal @entity(immutable: true) {
+    id: ID!
+    ts: BigInt!
+    userAddress: Bytes! # address
+    wthdrawAmount: BigInt!
+}
+
+type PositionAdjust @entity(immutable: true) {
+    id: ID!
+    ts: BigInt!
+    isIncrease: Boolean
+    totalAmount: BigInt!
+    usdcAmount: BigInt!
+    ethAmount: BigInt!
+}
